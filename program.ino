@@ -1,3 +1,28 @@
+// https://www.instructables.com/id/MFRC522-RFID-Reader-Interfaced-With-NodeMCU/
+// https://kelasrobot.com/cara-mudah-mengirim-pesan-dari-nodemcu-ke-telegram-telegrambot-part1/
+
+#include <SPI.h>
+#include <MFRC522.h>
+#include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
+#include <UniversalTelegramBot.h>
+
+#define RELAY D8
+
+#define SS_PIN D4
+#define RST_PIN D3
+MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance.
+
+char ssid[] = "DeepLock"; 
+char password[] = "deeplock1130@";
+#define BOTtoken "819820249:AAGEe_ZX9mrgKuhfuF7eYJjDm8mKq9e1fO0"
+String chatid = "-252060284";
+int switchState, jumlah= 0;
+int relay_session=1;
+
+WiFiClientSecure client;
+UniversalTelegramBot bot(BOTtoken, client);
+
 void setup() 
 {
   Serial.begin(115200);
